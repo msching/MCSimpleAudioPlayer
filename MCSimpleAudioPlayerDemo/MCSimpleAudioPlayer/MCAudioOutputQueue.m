@@ -41,7 +41,7 @@ const int MCAudioQueueBufferCount = 2;
 @synthesize bufferSize = _bufferSize;
 
 #pragma mark - init & dealloc
-- (instancetype)initWithFormat:(AudioStreamBasicDescription)format  bufferSize:(UInt32)bufferSize
+- (instancetype)initWithFormat:(AudioStreamBasicDescription)format  bufferSize:(UInt32)bufferSize macgicCookie:(NSData *)macgicCookie
 {
     self = [super init];
     if (self)
@@ -51,7 +51,7 @@ const int MCAudioQueueBufferCount = 2;
         _bufferSize = bufferSize;
         _buffers = [[NSMutableArray alloc] init];
         _reusableBuffers = [[NSMutableArray alloc] init];
-        [self _createAudioOutputQueue];
+        [self _createAudioOutputQueue:macgicCookie];
         [self _mutexInit];
     }
     return self;
@@ -101,7 +101,7 @@ const int MCAudioQueueBufferCount = 2;
 }
 
 #pragma mark - audio queue
-- (void)_createAudioOutputQueue
+- (void)_createAudioOutputQueue:(NSData *)magicCookie
 {
     OSStatus status = AudioQueueNewOutput(&_format,MCAudioQueueOutputCallback, (__bridge void *)(self), NULL, NULL, 0, &_audioQueue);
     if (status != noErr)
@@ -139,6 +139,11 @@ const int MCAudioQueueBufferCount = 2;
     UInt32 property = kAudioQueueHardwareCodecPolicy_PreferSoftware;
     [self setProperty:kAudioQueueProperty_HardwareCodecPolicy dataSize:sizeof(property) data:&property error:NULL];
 #endif
+    
+    if (magicCookie)
+    {
+        AudioQueueSetProperty(_audioQueue, kAudioQueueProperty_MagicCookie, [magicCookie bytes], [magicCookie length]);
+    }
     
     [self setVolumeParameter];
 }

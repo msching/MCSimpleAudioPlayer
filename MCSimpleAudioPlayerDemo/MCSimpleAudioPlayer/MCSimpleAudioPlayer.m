@@ -182,7 +182,7 @@
     }
     if (_bufferSize > 0)
     {
-        _audioQueue = [[MCAudioOutputQueue alloc] initWithFormat:_audioFileStream.format bufferSize:_bufferSize];
+        _audioQueue = [[MCAudioOutputQueue alloc] initWithFormat:_audioFileStream.format bufferSize:_bufferSize macgicCookie:[_audioFileStream fetchMagicCookie]];
         if (!_audioQueue.available)
         {
             _audioQueue = nil;

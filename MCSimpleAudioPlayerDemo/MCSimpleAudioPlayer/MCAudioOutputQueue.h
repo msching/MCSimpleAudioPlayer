@@ -21,7 +21,7 @@
  */
 @property (nonatomic,readonly) NSTimeInterval playedTime;
 
-- (instancetype)initWithFormat:(AudioStreamBasicDescription)format bufferSize:(UInt32)bufferSize;
+- (instancetype)initWithFormat:(AudioStreamBasicDescription)format bufferSize:(UInt32)bufferSize macgicCookie:(NSData *)macgicCookie;
 
 /**
  *  Play audio data, data length must be less than bufferSize.

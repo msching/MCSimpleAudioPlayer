@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE85FAAA198CC881009DAEDB /* M4ASample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DE85FAA9198CC881009DAEDB /* M4ASample.m4a */; };
 		DEEC987C198772E6003CB508 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC987B198772E6003CB508 /* Foundation.framework */; };
 		DEEC987E198772E6003CB508 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC987D198772E6003CB508 /* CoreGraphics.framework */; };
 		DEEC9880198772E6003CB508 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC987F198772E6003CB508 /* UIKit.framework */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE85FAA9198CC881009DAEDB /* M4ASample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = M4ASample.m4a; sourceTree = "<group>"; };
 		DEEC9878198772E6003CB508 /* MCSimpleAudioPlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCSimpleAudioPlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEC987B198772E6003CB508 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DEEC987D198772E6003CB508 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,6 +149,7 @@
 		DEEC9882198772E6003CB508 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DE85FAA9198CC881009DAEDB /* M4ASample.m4a */,
 				DEEC98B01987730E003CB508 /* MP3Sample.mp3 */,
 				DEEC9883198772E6003CB508 /* MCSimpleAudioPlayerDemo-Info.plist */,
 				DEEC9884198772E6003CB508 /* InfoPlist.strings */,
@@ -280,6 +283,7 @@
 				DEEC98B11987730E003CB508 /* MP3Sample.mp3 in Resources */,
 				DEEC9886198772E6003CB508 /* InfoPlist.strings in Resources */,
 				DEEC988F198772E6003CB508 /* Main.storyboard in Resources */,
+				DE85FAAA198CC881009DAEDB /* M4ASample.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

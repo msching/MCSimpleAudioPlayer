@@ -46,5 +46,7 @@
  */
 - (SInt64)seekToTime:(NSTimeInterval *)time;
 
+- (NSData *)fetchMagicCookie;
+
 - (void)close;
 @end

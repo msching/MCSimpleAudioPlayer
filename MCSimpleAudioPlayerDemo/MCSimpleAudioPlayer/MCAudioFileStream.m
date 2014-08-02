@@ -130,6 +130,30 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
 }
 
 #pragma mark - actions
+- (NSData *)fetchMagicCookie
+{
+    UInt32 cookieSize;
+	Boolean writable;
+	OSStatus status = AudioFileStreamGetPropertyInfo(_audioFileStreamID, kAudioFileStreamProperty_MagicCookieData, &cookieSize, &writable);
+	if (status != noErr)
+	{
+		return nil;
+	}
+    
+	// get the cookie data
+	void* cookieData = calloc(1, cookieSize);
+	status = AudioFileStreamGetProperty(_audioFileStreamID, kAudioFileStreamProperty_MagicCookieData, &cookieSize, cookieData);
+	if (status != noErr)
+	{
+		return nil;
+	}
+    
+    NSData *cookie = [NSData dataWithBytes:cookieData length:cookieSize];
+    free(cookieData);
+    
+    return cookie;
+}
+
 - (BOOL)parseData:(NSData *)data error:(NSError **)error
 {
     OSStatus status = AudioFileStreamParseBytes(_audioFileStreamID,(UInt32)[data length],[data bytes],_discontinuous ? kAudioFileStreamParseFlag_Discontinuity : 0);
