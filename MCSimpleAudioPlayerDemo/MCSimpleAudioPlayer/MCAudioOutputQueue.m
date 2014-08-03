@@ -141,7 +141,7 @@ const int MCAudioQueueBufferCount = 2;
     
     if (magicCookie)
     {
-        AudioQueueSetProperty(_audioQueue, kAudioQueueProperty_MagicCookie, [magicCookie bytes], [magicCookie length]);
+        AudioQueueSetProperty(_audioQueue, kAudioQueueProperty_MagicCookie, [magicCookie bytes], (UInt32)[magicCookie length]);
     }
     
     [self setVolumeParameter];
