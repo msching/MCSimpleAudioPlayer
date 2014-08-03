@@ -21,7 +21,6 @@ const int MCAudioQueueBufferCount = 2;
 {
 @private
     AudioQueueRef _audioQueue;
-    AudioQueueBufferRef _buffer;
     NSMutableArray *_buffers;
     NSMutableArray *_reusableBuffers;
     
