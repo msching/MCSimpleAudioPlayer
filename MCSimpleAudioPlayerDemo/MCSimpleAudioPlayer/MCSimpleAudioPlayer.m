@@ -292,6 +292,7 @@
                         
                         if (![_buffer hasData] && isEof)
                         {
+                            [_audioQueue flush];
                             break;
                         }
                     }

@@ -24,7 +24,6 @@ const int MCAudioQueueBufferCount = 2;
     NSMutableArray *_buffers;
     NSMutableArray *_reusableBuffers;
     
-    BOOL _isRunning;
     BOOL _started;
     NSTimeInterval _playedTime;
     
@@ -105,13 +104,6 @@ const int MCAudioQueueBufferCount = 2;
     OSStatus status = AudioQueueNewOutput(&_format,MCAudioQueueOutputCallback, (__bridge void *)(self), NULL, NULL, 0, &_audioQueue);
     if (status != noErr)
     {
-        _audioQueue = NULL;
-    }
-    
-    status = AudioQueueAddPropertyListener(_audioQueue, kAudioQueueProperty_IsRunning, MCAudioQueuePropertyCallback, (__bridge void *)(self));
-    if (status != noErr)
-    {
-        AudioQueueDispose(_audioQueue, YES);
         _audioQueue = NULL;
     }
     
@@ -204,12 +196,6 @@ const int MCAudioQueueBufferCount = 2;
     }
     _started = NO;
     _playedTime = 0;
-    if (!_isRunning)
-    {
-        [_reusableBuffers removeAllObjects];
-        [_reusableBuffers addObjectsFromArray:_buffers];
-    }
-    [self _mutexSignal];
     return status == noErr;
 }
 
@@ -332,27 +318,5 @@ static void MCAudioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, A
     }
     
     [self _mutexSignal];
-}
-
-- (void)handleAudioQueuePropertyCallBack:(AudioQueueRef)audioQueue property:(AudioQueuePropertyID)property
-{
-    if (property == kAudioQueueProperty_IsRunning)
-    {
-        UInt32 isRunning = 0;
-        UInt32 size = sizeof(isRunning);
-        AudioQueueGetProperty(audioQueue, property, &isRunning, &size);
-        _isRunning = isRunning;
-        if (!_isRunning)
-        {
-            [_reusableBuffers removeAllObjects];
-            [_reusableBuffers addObjectsFromArray:_buffers];
-        }
-    }
-}
-
-static void MCAudioQueuePropertyCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
-{
-	__unsafe_unretained MCAudioOutputQueue *audioQueue = (__bridge MCAudioOutputQueue *)inUserData;
-	[audioQueue handleAudioQueuePropertyCallBack:inAQ property:inID];
 }
 @end
