@@ -19,11 +19,12 @@ typedef NS_ENUM(NSUInteger, MCSAPStatus)
 
 @interface MCSimpleAudioPlayer : NSObject
 
-@property (nonatomic,readonly) MCSAPStatus status;
-@property (nonatomic,retain,readonly) NSString *filePath;
+@property (nonatomic,copy,readonly) NSString *filePath;
 @property (nonatomic,assign,readonly) AudioFileTypeID fileType;
-@property (nonatomic,assign,readonly) BOOL failed;
+
+@property (nonatomic,readonly) MCSAPStatus status;
 @property (nonatomic,readonly) BOOL isPlayingOrWaiting;
+@property (nonatomic,assign,readonly) BOOL failed;
 
 @property (nonatomic,assign) NSTimeInterval progress;
 @property (nonatomic,readonly) NSTimeInterval duration;
