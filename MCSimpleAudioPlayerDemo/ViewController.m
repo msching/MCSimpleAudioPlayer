@@ -33,6 +33,9 @@
 //        NSString *path = [[NSBundle mainBundle] pathForResource:@"M4ASample" ofType:@"m4a"];
 //        _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:kAudioFileAAC_ADTSType];
         
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"CAFSample" ofType:@"caf"];
+//        _player = [[MCSimpleAudioPlayer alloc] initWithFilePath:path fileType:kAudioFileCAFType];
+        
         [_player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     }
     [_player play];

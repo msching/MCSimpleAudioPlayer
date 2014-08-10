@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DE85FAAA198CC881009DAEDB /* M4ASample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DE85FAA9198CC881009DAEDB /* M4ASample.m4a */; };
+		DEAC702F1997537B00840D69 /* MCAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAC702E1997537B00840D69 /* MCAudioFile.m */; };
+		DEAC703119975C4400840D69 /* CAFSample.caf in Resources */ = {isa = PBXBuildFile; fileRef = DEAC703019975C4400840D69 /* CAFSample.caf */; };
 		DEEC987C198772E6003CB508 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC987B198772E6003CB508 /* Foundation.framework */; };
 		DEEC987E198772E6003CB508 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC987D198772E6003CB508 /* CoreGraphics.framework */; };
 		DEEC9880198772E6003CB508 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC987F198772E6003CB508 /* UIKit.framework */; };
@@ -43,6 +45,9 @@
 
 /* Begin PBXFileReference section */
 		DE85FAA9198CC881009DAEDB /* M4ASample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = M4ASample.m4a; sourceTree = "<group>"; };
+		DEAC702D1997537B00840D69 /* MCAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioFile.h; sourceTree = "<group>"; };
+		DEAC702E1997537B00840D69 /* MCAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioFile.m; sourceTree = "<group>"; };
+		DEAC703019975C4400840D69 /* CAFSample.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CAFSample.caf; sourceTree = "<group>"; };
 		DEEC9878198772E6003CB508 /* MCSimpleAudioPlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCSimpleAudioPlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEC987B198772E6003CB508 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DEEC987D198772E6003CB508 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -149,6 +154,7 @@
 		DEEC9882198772E6003CB508 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DEAC703019975C4400840D69 /* CAFSample.caf */,
 				DE85FAA9198CC881009DAEDB /* M4ASample.m4a */,
 				DEEC98B01987730E003CB508 /* MP3Sample.mp3 */,
 				DEEC9883198772E6003CB508 /* MCSimpleAudioPlayerDemo-Info.plist */,
@@ -182,6 +188,8 @@
 			children = (
 				DEEC98B919877358003CB508 /* MCAudioSession.h */,
 				DEEC98BA19877358003CB508 /* MCAudioSession.m */,
+				DEAC702D1997537B00840D69 /* MCAudioFile.h */,
+				DEAC702E1997537B00840D69 /* MCAudioFile.m */,
 				DEEC98B519877358003CB508 /* MCAudioFileStream.h */,
 				DEEC98B619877358003CB508 /* MCAudioFileStream.m */,
 				DEEC98B719877358003CB508 /* MCAudioOutputQueue.h */,
@@ -282,6 +290,7 @@
 				DEEC9894198772E6003CB508 /* Images.xcassets in Resources */,
 				DEEC98B11987730E003CB508 /* MP3Sample.mp3 in Resources */,
 				DEEC9886198772E6003CB508 /* InfoPlist.strings in Resources */,
+				DEAC703119975C4400840D69 /* CAFSample.caf in Resources */,
 				DEEC988F198772E6003CB508 /* Main.storyboard in Resources */,
 				DE85FAAA198CC881009DAEDB /* M4ASample.m4a in Resources */,
 			);
@@ -304,6 +313,7 @@
 			files = (
 				DEEC9892198772E6003CB508 /* ViewController.m in Sources */,
 				DEEC98C319877358003CB508 /* MCParsedAudioData.m in Sources */,
+				DEAC702F1997537B00840D69 /* MCAudioFile.m in Sources */,
 				DEEC98C419877358003CB508 /* MCSimpleAudioPlayer.m in Sources */,
 				DEEC98C019877358003CB508 /* MCAudioFileStream.m in Sources */,
 				DEEC988C198772E6003CB508 /* AppDelegate.m in Sources */,

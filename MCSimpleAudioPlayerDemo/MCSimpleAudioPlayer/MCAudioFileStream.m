@@ -140,8 +140,7 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
 		return nil;
 	}
     
-	// get the cookie data
-	void* cookieData = calloc(1, cookieSize);
+	void *cookieData = malloc(cookieSize);
 	status = AudioFileStreamGetProperty(_audioFileStreamID, kAudioFileStreamProperty_MagicCookieData, &cookieSize, cookieData);
 	if (status != noErr)
 	{

@@ -8,6 +8,7 @@
 
 #import "MCSimpleAudioPlayer.h"
 #import "MCAudioSession.h"
+#import "MCAudioFile.h"
 #import "MCAudioFileStream.h"
 #import "MCAudioOutputQueue.h"
 #import "MCAudioBuffer.h"
@@ -29,6 +30,7 @@
     UInt32 _bufferSize;
     MCAudioBuffer *_buffer;
     
+    MCAudioFile *_audioFile;
     MCAudioFileStream *_audioFileStream;
     MCAudioOutputQueue *_audioQueue;
     
@@ -36,6 +38,7 @@
     BOOL _pauseRequired;
     BOOL _stopRequired;
     BOOL _pausedByInterrupt;
+    BOOL _usingAudioFile;
     
     BOOL _seekRequired;
     NSTimeInterval _seekTime;
@@ -97,8 +100,12 @@
     //clean buffer
     [_buffer clean];
     
+    _usingAudioFile = NO;
     //close audioFileStream
     [_audioFileStream close];
+    
+    //close audiofile
+    [_audioFile close];
     
     //stop audioQueue
     [_audioQueue stop:YES];
@@ -176,13 +183,27 @@
     }
     
     _bufferSize = 0;
-    if (_audioFileStream.duration != 0)
+    if (_usingAudioFile)
     {
-        _bufferSize = (0.1 / _audioFileStream.duration) * _audioFileStream.audioDataByteCount;
+        if (_audioFile.duration != 0)
+        {
+            _bufferSize = (0.1 / _audioFile.duration) * _audioFile.audioDataByteCount;
+        }
     }
+    else
+    {
+        if (_audioFileStream.duration != 0)
+        {
+            _bufferSize = (0.1 / _audioFileStream.duration) * _audioFileStream.audioDataByteCount;
+        }
+    }
+    
+    
     if (_bufferSize > 0)
     {
-        _audioQueue = [[MCAudioOutputQueue alloc] initWithFormat:_audioFileStream.format bufferSize:_bufferSize macgicCookie:[_audioFileStream fetchMagicCookie]];
+        AudioStreamBasicDescription format = _usingAudioFile ? _audioFile.format : _audioFileStream.format;
+        NSData *magicCookie = _usingAudioFile ? [_audioFile fetchMagicCookie] : [_audioFileStream fetchMagicCookie];
+        _audioQueue = [[MCAudioOutputQueue alloc] initWithFormat:format bufferSize:_bufferSize macgicCookie:magicCookie];
         if (!_audioQueue.available)
         {
             _audioQueue = nil;
@@ -226,24 +247,37 @@
         while (_offset < _fileSize && self.status != MCSAPStatusStopped && !_failed && _started)
         {
             //read file & parse
-            if (!_audioFileStream.readyToProducePackets || [_buffer bufferedSize] < _bufferSize || !_audioQueue)
+            if (_usingAudioFile)
             {
-                NSData *data = [_fileHandler readDataOfLength:1000];
-                _offset += [data length];
-                if (_offset >= _fileSize)
+                if ([_buffer bufferedSize] < _bufferSize || !_audioQueue)
                 {
-                    isEof = YES;
+                    NSArray *parsedData = [_audioFile parseData:&isEof];
+                    [_buffer enqueueFromDataArray:parsedData];
                 }
-                [_audioFileStream parseData:data error:&error];
-                if (error)
+            }
+            else
+            {
+                if (!_audioFileStream.readyToProducePackets || [_buffer bufferedSize] < _bufferSize || !_audioQueue)
                 {
-                    _failed = YES;
-                    break;
+                    NSData *data = [_fileHandler readDataOfLength:1000];
+                    _offset += [data length];
+                    if (_offset >= _fileSize)
+                    {
+                        isEof = YES;
+                    }
+                    [_audioFileStream parseData:data error:&error];
+                    if (error)
+                    {
+                        _usingAudioFile = YES;
+                        _audioFile = [[MCAudioFile alloc] initWithFilePath:_filePath fileType:_fileType];
+                        continue;
+                    }
                 }
             }
             
             
-            if (_audioFileStream.readyToProducePackets)
+            
+            if (_audioFileStream.readyToProducePackets || _usingAudioFile)
             {
                 if (![self createAudioQueue])
                 {
@@ -275,7 +309,7 @@
                 }
                 
                 //play
-                if ([_buffer bufferedSize] >= _bufferSize)
+                if ([_buffer bufferedSize] >= _bufferSize || isEof)
                 {
                     UInt32 packetCount;
                     AudioStreamPacketDescription *desces = NULL;
@@ -310,9 +344,16 @@
                     [self setStatusInternal:MCSAPStatusWaiting];
                     
                     _timingOffset = _seekTime - _audioQueue.playedTime;
-                    _offset = [_audioFileStream seekToTime:&_seekTime];
                     [_buffer clean];
-                    [_fileHandler seekToFileOffset:_offset];
+                    if (_usingAudioFile)
+                    {
+                        [_audioFile seekToTime:_seekTime];
+                    }
+                    else
+                    {
+                        _offset = [_audioFileStream seekToTime:&_seekTime];
+                        [_fileHandler seekToFileOffset:_offset];
+                    }
                     _seekRequired = NO;
                     [_audioQueue reset];
                 }
@@ -376,7 +417,7 @@
 
 - (NSTimeInterval)duration
 {
-    return _audioFileStream.duration;
+    return _usingAudioFile ? _audioFile.duration : _audioFileStream.duration;
 }
 
 #pragma mark - method
