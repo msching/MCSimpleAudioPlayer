@@ -61,7 +61,7 @@
     self = [super init];
     if (self)
     {
-        _status = -1;
+        _status = MCSAPStatusStopped;
         
         _filePath = filePath;
         _fileType = fileType;
