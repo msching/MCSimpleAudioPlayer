@@ -182,22 +182,13 @@
         return YES;
     }
     
+    NSTimeInterval duration = _usingAudioFile ? _audioFile.duration : _audioFileStream.duration;
+    UInt64 audioDataByteCount = _usingAudioFile ? _audioFile.audioDataByteCount : _audioFileStream.audioDataByteCount;
     _bufferSize = 0;
-    if (_usingAudioFile)
+    if (duration != 0)
     {
-        if (_audioFile.duration != 0)
-        {
-            _bufferSize = (0.1 / _audioFile.duration) * _audioFile.audioDataByteCount;
-        }
+        _bufferSize = (0.1 / duration) * audioDataByteCount;
     }
-    else
-    {
-        if (_audioFileStream.duration != 0)
-        {
-            _bufferSize = (0.1 / _audioFileStream.duration) * _audioFileStream.audioDataByteCount;
-        }
-    }
-    
     
     if (_bufferSize > 0)
     {
