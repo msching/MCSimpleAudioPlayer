@@ -261,7 +261,7 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
                 
                 UInt32 supportedFormatCount = supportedFormatsSize / sizeof(OSType);
                 OSType *supportedFormats = (OSType *)malloc(supportedFormatsSize);
-                status = AudioFormatGetProperty(kAudioFormatProperty_DecodeFormatIDs, 0, NULL, &supportedFormatCount, supportedFormats);
+                status = AudioFormatGetProperty(kAudioFormatProperty_DecodeFormatIDs, 0, NULL, &supportedFormatsSize, supportedFormats);
                 if (status != noErr)
                 {
                     free(formatList);
