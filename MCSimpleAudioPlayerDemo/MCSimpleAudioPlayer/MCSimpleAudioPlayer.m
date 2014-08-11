@@ -240,6 +240,10 @@
             //read file & parse
             if (_usingAudioFile)
             {
+                if (!_audioFile)
+                {
+                    _audioFile = [[MCAudioFile alloc] initWithFilePath:_filePath fileType:_fileType];
+                }
                 if ([_buffer bufferedSize] < _bufferSize || !_audioQueue)
                 {
                     NSArray *parsedData = [_audioFile parseData:&isEof];
@@ -260,7 +264,6 @@
                     if (error)
                     {
                         _usingAudioFile = YES;
-                        _audioFile = [[MCAudioFile alloc] initWithFilePath:_filePath fileType:_fileType];
                         continue;
                     }
                 }
@@ -355,6 +358,7 @@
         [self cleanup];
     }
 }
+
 
 #pragma mark - interrupt
 - (void)interruptHandler:(NSNotification *)notification
