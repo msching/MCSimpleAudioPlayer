@@ -41,6 +41,7 @@
                                 <rect key="frame" x="18" y="246" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
+                                    <action selector="seek:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="VRp-wl-wer"/>
                                     <action selector="seek:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Zkl-u4-Otl"/>
                                 </connections>
                             </slider>
