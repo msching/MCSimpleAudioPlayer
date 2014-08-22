@@ -235,7 +235,7 @@
         
         [self setStatusInternal:MCSAPStatusWaiting];
         BOOL isEof = NO;
-        while (_offset < _fileSize && self.status != MCSAPStatusStopped && !_failed && _started)
+        while (self.status != MCSAPStatusStopped && !_failed && _started)
         {
             //read file & parse
             if (_usingAudioFile)
@@ -260,7 +260,7 @@
             }
             else
             {
-                if (!_audioFileStream.readyToProducePackets || [_buffer bufferedSize] < _bufferSize || !_audioQueue)
+                if (_offset < _fileSize && (!_audioFileStream.readyToProducePackets || [_buffer bufferedSize] < _bufferSize || !_audioQueue))
                 {
                     NSData *data = [_fileHandler readDataOfLength:1000];
                     _offset += [data length];

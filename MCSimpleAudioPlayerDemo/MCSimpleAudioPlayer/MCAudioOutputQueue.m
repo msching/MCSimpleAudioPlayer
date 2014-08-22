@@ -217,6 +217,20 @@ const int MCAudioQueueBufferCount = 2;
     
     MCAudioQueueBuffer *bufferObj = [_reusableBuffers firstObject];
     [_reusableBuffers removeObject:bufferObj];
+    if (!bufferObj)
+    {
+        AudioQueueBufferRef buffer;
+        OSStatus status = AudioQueueAllocateBuffer(_audioQueue, _bufferSize, &buffer);
+        if (status == noErr)
+        {
+            bufferObj = [[MCAudioQueueBuffer alloc] init];
+            bufferObj.buffer = buffer;
+        }
+        else
+        {
+            return NO;
+        }
+    }
     memcpy(bufferObj.buffer->mAudioData, [data bytes], [data length]);
     bufferObj.buffer->mAudioDataByteSize = (UInt32)[data length];
     
