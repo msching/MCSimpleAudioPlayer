@@ -247,7 +247,15 @@
                 if ([_buffer bufferedSize] < _bufferSize || !_audioQueue)
                 {
                     NSArray *parsedData = [_audioFile parseData:&isEof];
-                    [_buffer enqueueFromDataArray:parsedData];
+                    if (parsedData)
+                    {
+                        [_buffer enqueueFromDataArray:parsedData];
+                    }
+                    else
+                    {
+                        _failed = YES;
+                        break;
+                    }
                 }
             }
             else

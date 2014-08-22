@@ -246,6 +246,7 @@ static const UInt32 packetPerRead = 15;
     if (status != noErr)
     {
         *isEof = status == kAudioFileEndOfFileError;
+        free(outBuffer);
         return nil;
     }
     
