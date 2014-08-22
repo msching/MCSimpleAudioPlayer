@@ -15,6 +15,7 @@
 @property (nonatomic,assign,readonly) AudioStreamBasicDescription format;
 @property (nonatomic,assign) float volume;
 @property (nonatomic,assign) UInt32 bufferSize;
+@property (nonatomic,assign,readonly) BOOL isRunning;
 
 /**
  *  return playedTime of audioqueue, return invalidPlayedTime when error occurs.

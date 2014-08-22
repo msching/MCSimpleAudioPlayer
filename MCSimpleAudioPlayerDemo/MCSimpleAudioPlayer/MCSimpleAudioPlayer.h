@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, MCSAPStatus)
     MCSAPStatusPlaying = 1,
     MCSAPStatusWaiting = 2,
     MCSAPStatusPaused = 3,
+    MCSAPStatusFlushing = 4,
 };
 
 @interface MCSimpleAudioPlayer : NSObject

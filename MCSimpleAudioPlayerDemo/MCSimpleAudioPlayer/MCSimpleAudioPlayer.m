@@ -127,7 +127,7 @@
 #pragma mark - status
 - (BOOL)isPlayingOrWaiting
 {
-    return self.status == MCSAPStatusWaiting || self.status == MCSAPStatusPlaying;
+    return self.status == MCSAPStatusWaiting || self.status == MCSAPStatusPlaying || self.status == MCSAPStatusFlushing;
 }
 
 - (MCSAPStatus)status
@@ -292,6 +292,11 @@
                     continue;
                 }
                 
+                if (self.status == MCSAPStatusFlushing && !_audioQueue.isRunning)
+                {
+                    break;
+                }
+                
                 //stop
                 if (_stopRequired)
                 {
@@ -328,9 +333,13 @@
                         
                         if (![_buffer hasData] && isEof)
                         {
-                            [_audioQueue flush];
-                            break;
+                            [_audioQueue stop:NO];
+                            [self setStatusInternal:MCSAPStatusFlushing];
                         }
+                    }
+                    else if (isEof)
+                    {
+                        //do nothing wait for end
                     }
                     else
                     {
@@ -456,7 +465,7 @@
 
 - (void)pause
 {
-    if (self.isPlayingOrWaiting)
+    if (self.isPlayingOrWaiting && self.status != MCSAPStatusFlushing)
     {
         _pauseRequired = YES;
     }
