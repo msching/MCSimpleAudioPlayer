@@ -155,6 +155,11 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
 
 - (BOOL)parseData:(NSData *)data error:(NSError **)error
 {
+    if (self.readyToProducePackets && _packetDuration == 0)
+    {
+        [self _errorForOSStatus:-1 error:error];
+        return NO;
+    }
     OSStatus status = AudioFileStreamParseBytes(_audioFileStreamID,(UInt32)[data length],[data bytes],_discontinuous ? kAudioFileStreamParseFlag_Discontinuity : 0);
     [self _errorForOSStatus:status error:error];
     return status == noErr;
