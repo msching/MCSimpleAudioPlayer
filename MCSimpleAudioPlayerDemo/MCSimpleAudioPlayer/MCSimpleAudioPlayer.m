@@ -206,36 +206,36 @@
 
 - (void)threadMain
 {
-    @autoreleasepool
+    _failed = YES;
+    NSError *error = nil;
+    //set audiosession category
+    if ([[MCAudioSession sharedInstance] setCategory:kAudioSessionCategory_MediaPlayback error:NULL])
     {
-        _failed = YES;
-        NSError *error = nil;
-        //set audiosession category
-        if ([[MCAudioSession sharedInstance] setCategory:kAudioSessionCategory_MediaPlayback error:NULL])
+        //active audiosession
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruptHandler:) name:MCAudioSessionInterruptionNotification object:nil];
+        if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
         {
-            //active audiosession
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruptHandler:) name:MCAudioSessionInterruptionNotification object:nil];
-            if ([[MCAudioSession sharedInstance] setActive:YES error:NULL])
+            //create audioFileStream
+            _audioFileStream = [[MCAudioFileStream alloc] initWithFileType:_fileType fileSize:_fileSize error:&error];
+            if (!error)
             {
-                //create audioFileStream
-                _audioFileStream = [[MCAudioFileStream alloc] initWithFileType:_fileType fileSize:_fileSize error:&error];
-                if (!error)
-                {
-                    _failed = NO;
-                    _audioFileStream.delegate = self;
-                }
+                _failed = NO;
+                _audioFileStream.delegate = self;
             }
         }
-        
-        if (_failed)
-        {
-            [self cleanup];
-            return;
-        }
-        
-        [self setStatusInternal:MCSAPStatusWaiting];
-        BOOL isEof = NO;
-        while (self.status != MCSAPStatusStopped && !_failed && _started)
+    }
+    
+    if (_failed)
+    {
+        [self cleanup];
+        return;
+    }
+    
+    [self setStatusInternal:MCSAPStatusWaiting];
+    BOOL isEof = NO;
+    while (self.status != MCSAPStatusStopped && !_failed && _started)
+    {
+        @autoreleasepool
         {
             //read file & parse
             if (_usingAudioFile)
@@ -345,7 +345,6 @@
                     {
                         _failed = YES;
                         break;
-                        NSLog(@"buffer size too small");
                     }
                 }
                 
@@ -370,10 +369,10 @@
                 }
             }
         }
-
-        //clean
-        [self cleanup];
     }
+    
+    //clean
+    [self cleanup];
 }
 
 
