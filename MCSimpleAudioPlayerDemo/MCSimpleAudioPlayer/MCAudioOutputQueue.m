@@ -161,10 +161,6 @@ const int MCAudioQueueBufferCount = 2;
 
 - (BOOL)_start
 {
-    if (_started)
-    {
-        return YES;
-    }
     OSStatus status = AudioQueueStart(_audioQueue, NULL);
     _started = status == noErr;
     return _started;
