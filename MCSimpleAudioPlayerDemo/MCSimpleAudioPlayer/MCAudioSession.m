@@ -25,7 +25,7 @@ static void MCAudioSessionInterruptionListener(void *inClientData, UInt32 inInte
     
     NSDictionary *userInfo = @{MCAudioSessionInterruptionStateKey:@(inInterruptionState),
                                MCAudioSessionInterruptionTypeKey:@(interruptionType)};
-    __unsafe_unretained MCAudioSession *audioSession = (__bridge MCAudioSession *)inClientData;
+    MCAudioSession *audioSession = (__bridge MCAudioSession *)inClientData;
     [[NSNotificationCenter defaultCenter] postNotificationName:MCAudioSessionInterruptionNotification object:audioSession userInfo:userInfo];
 }
 
@@ -41,7 +41,7 @@ static void MCAudioSessionRouteChangeListener(void *inClientData, AudioSessionPr
     CFNumberGetValue (routeChangeReasonRef, kCFNumberSInt32Type, &routeChangeReason);
     
     NSDictionary *userInfo = @{MCAudioSessionRouteChangeReason:@(routeChangeReason)};
-    __unsafe_unretained MCAudioSession *audioSession = (__bridge MCAudioSession *)inClientData;
+    MCAudioSession *audioSession = (__bridge MCAudioSession *)inClientData;
     [[NSNotificationCenter defaultCenter] postNotificationName:MCAudioSessionRouteChangeNotification object:audioSession userInfo:userInfo];
 }
 

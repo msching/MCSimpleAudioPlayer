@@ -310,7 +310,7 @@ static OSStatus MCAudioFileReadCallBack(void *inClientData,
                                         void *buffer,
                                         UInt32 *actualCount)
 {
-    __unsafe_unretained MCAudioFile *audioFile = (__bridge MCAudioFile *)inClientData;
+    MCAudioFile *audioFile = (__bridge MCAudioFile *)inClientData;
     
     *actualCount = [audioFile availableDataLengthAtOffset:inPosition maxLength:requestCount];
     if (*actualCount > 0)
@@ -324,7 +324,7 @@ static OSStatus MCAudioFileReadCallBack(void *inClientData,
 
 static SInt64 MCAudioFileGetSizeCallBack(void *inClientData)
 {
-    __unsafe_unretained MCAudioFile *audioFile = (__bridge MCAudioFile *)inClientData;
+    MCAudioFile *audioFile = (__bridge MCAudioFile *)inClientData;
     return audioFile.fileSize;
 }
 

@@ -323,7 +323,7 @@ const int MCAudioQueueBufferCount = 2;
 #pragma mark - call back
 static void MCAudioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
 {
-	__unsafe_unretained MCAudioOutputQueue *audioOutputQueue = (__bridge MCAudioOutputQueue *)inClientData;
+	MCAudioOutputQueue *audioOutputQueue = (__bridge MCAudioOutputQueue *)inClientData;
 	[audioOutputQueue handleAudioQueueOutputCallBack:inAQ buffer:inBuffer];
 }
 
@@ -343,7 +343,7 @@ static void MCAudioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, A
 
 static void MCAudioQueuePropertyCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
-	__unsafe_unretained MCAudioOutputQueue *audioQueue = (__bridge MCAudioOutputQueue *)inUserData;
+	MCAudioOutputQueue *audioQueue = (__bridge MCAudioOutputQueue *)inUserData;
 	[audioQueue handleAudioQueuePropertyCallBack:inAQ property:inID];
 }
 

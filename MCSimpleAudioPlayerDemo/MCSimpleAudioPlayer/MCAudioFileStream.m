@@ -37,7 +37,7 @@ static void MCSAudioFileStreamPropertyListener(void *inClientData,
                                                AudioFileStreamPropertyID inPropertyID,
                                                UInt32 *ioFlags)
 {
-    __unsafe_unretained MCAudioFileStream *audioFileStream = (__bridge MCAudioFileStream *)inClientData;
+    MCAudioFileStream *audioFileStream = (__bridge MCAudioFileStream *)inClientData;
     [audioFileStream handleAudioFileStreamProperty:inPropertyID];
 }
 
@@ -47,7 +47,7 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
                                              const void *inInputData,
                                              AudioStreamPacketDescription *inPacketDescriptions)
 {
-    __unsafe_unretained MCAudioFileStream *audioFileStream = (__bridge MCAudioFileStream *)inClientData;
+    MCAudioFileStream *audioFileStream = (__bridge MCAudioFileStream *)inClientData;
     [audioFileStream handleAudioFileStreamPackets:inInputData
                                     numberOfBytes:inNumberBytes
                                   numberOfPackets:inNumberPackets
