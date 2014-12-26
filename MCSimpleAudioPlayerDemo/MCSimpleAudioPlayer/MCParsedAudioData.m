@@ -15,7 +15,7 @@
 + (instancetype)parsedAudioDataWithBytes:(const void *)bytes
                        packetDescription:(AudioStreamPacketDescription)packetDescription
 {
-    return [[[self class] alloc] initWithBytes:bytes
+    return [[self alloc] initWithBytes:bytes
                              packetDescription:packetDescription];
 }
 
