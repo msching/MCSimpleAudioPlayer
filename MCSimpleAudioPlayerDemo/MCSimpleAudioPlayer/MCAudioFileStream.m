@@ -9,7 +9,7 @@
 #import "MCAudioFileStream.h"
 
 #define BitRateEstimationMaxPackets 5000
-#define BitRateEstimationMinPackets 50
+#define BitRateEstimationMinPackets 10
 
 @interface MCAudioFileStream ()
 {
@@ -200,7 +200,7 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
 {
     if (_fileSize > 0 && _bitRate > 0)
     {
-        _duration = ((_fileSize - _dataOffset) * 8) / _bitRate;
+        _duration = ((_fileSize - _dataOffset) * 8.0) / _bitRate;
     }
 }
 

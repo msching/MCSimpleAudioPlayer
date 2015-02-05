@@ -331,7 +331,7 @@
                             break;
                         }
                         
-                        if (![_buffer hasData] && isEof)
+                        if (![_buffer hasData] && isEof && _audioQueue.isRunning)
                         {
                             [_audioQueue stop:NO];
                             [self setStatusInternal:MCSAPStatusFlushing];
@@ -339,7 +339,12 @@
                     }
                     else if (isEof)
                     {
-                        //do nothing wait for end
+                        //wait for end
+                        if (![_buffer hasData] && _audioQueue.isRunning)
+                        {
+                            [_audioQueue stop:NO];
+                            [self setStatusInternal:MCSAPStatusFlushing];
+                        }
                     }
                     else
                     {
