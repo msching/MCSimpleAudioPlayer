@@ -109,6 +109,7 @@
     
     //stop audioQueue
     [_audioQueue stop:YES];
+    _audioQueue = nil;
     
     //destory mutex & cond
     [self _mutexDestory];
@@ -182,7 +183,7 @@
         return YES;
     }
     
-    NSTimeInterval duration = _usingAudioFile ? _audioFile.duration : _audioFileStream.duration;
+    NSTimeInterval duration = self.duration;
     UInt64 audioDataByteCount = _usingAudioFile ? _audioFile.audioDataByteCount : _audioFileStream.audioDataByteCount;
     _bufferSize = 0;
     if (duration != 0)
@@ -354,7 +355,7 @@
                 }
                 
                 //seek
-                if (_seekRequired)
+                if (_seekRequired && self.duration != 0)
                 {
                     [self setStatusInternal:MCSAPStatusWaiting];
                     
