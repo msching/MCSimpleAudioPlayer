@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE6D85231AC015E2001FCB95 /* NSTimer+BlocksSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */; };
 		DE85FAAA198CC881009DAEDB /* M4ASample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DE85FAA9198CC881009DAEDB /* M4ASample.m4a */; };
 		DEAC702F1997537B00840D69 /* MCAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAC702E1997537B00840D69 /* MCAudioFile.m */; };
 		DEAC703119975C4400840D69 /* CAFSample.caf in Resources */ = {isa = PBXBuildFile; fileRef = DEAC703019975C4400840D69 /* CAFSample.caf */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE6D85211AC015E2001FCB95 /* NSTimer+BlocksSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+BlocksSupport.h"; sourceTree = "<group>"; };
+		DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+BlocksSupport.m"; sourceTree = "<group>"; };
 		DE85FAA9198CC881009DAEDB /* M4ASample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = M4ASample.m4a; sourceTree = "<group>"; };
 		DEAC702D1997537B00840D69 /* MCAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioFile.h; sourceTree = "<group>"; };
 		DEAC702E1997537B00840D69 /* MCAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioFile.m; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				DEEC988D198772E6003CB508 /* Main.storyboard */,
 				DEEC9890198772E6003CB508 /* ViewController.h */,
 				DEEC9891198772E6003CB508 /* ViewController.m */,
+				DE6D85211AC015E2001FCB95 /* NSTimer+BlocksSupport.h */,
+				DE6D85221AC015E2001FCB95 /* NSTimer+BlocksSupport.m */,
 				DEEC9893198772E6003CB508 /* Images.xcassets */,
 				DEEC9882198772E6003CB508 /* Supporting Files */,
 			);
@@ -320,6 +325,7 @@
 				DEEC98C119877358003CB508 /* MCAudioOutputQueue.m in Sources */,
 				DEEC98BF19877358003CB508 /* MCAudioBuffer.m in Sources */,
 				DEEC9888198772E6003CB508 /* main.m in Sources */,
+				DE6D85231AC015E2001FCB95 /* NSTimer+BlocksSupport.m in Sources */,
 				DEEC98C219877358003CB508 /* MCAudioSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

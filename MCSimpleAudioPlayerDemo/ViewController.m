@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MCSimpleAudioPlayer.h"
+#import "NSTimer+BlocksSupport.h"
 
 @interface ViewController ()
 {
@@ -71,7 +72,7 @@
     {
         [self.playOrPauseButton setTitle:@"Play" forState:UIControlStateNormal];
         [self stopTimer];
-        [self progressMove:nil];
+        [self progressMove];
     }
 }
 
@@ -80,7 +81,11 @@
 {
     if (!_timer)
     {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(progressMove:) userInfo:nil repeats:YES];
+        __weak typeof(self)weakSelf = self;
+        _timer = [NSTimer bs_scheduledTimerWithTimeInterval:1 block:^{
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf progressMove];
+        } repeats:YES];
         [_timer fire];
     }
 }
@@ -94,7 +99,7 @@
     }
 }
 
-- (void)progressMove:(id)sender
+- (void)progressMove
 {
     if (!self.progressSlider.tracking)
     {
