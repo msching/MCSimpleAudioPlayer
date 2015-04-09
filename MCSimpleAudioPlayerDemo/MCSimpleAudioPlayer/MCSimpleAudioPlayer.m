@@ -103,9 +103,11 @@
     _usingAudioFile = NO;
     //close audioFileStream
     [_audioFileStream close];
+    _audioFileStream = nil;
     
     //close audiofile
     [_audioFile close];
+    _audioFile = nil;
     
     //stop audioQueue
     [_audioQueue stop:YES];
@@ -245,6 +247,7 @@
                 {
                     _audioFile = [[MCAudioFile alloc] initWithFilePath:_filePath fileType:_fileType];
                 }
+                [_audioFile seekToTime:_seekTime];
                 if ([_buffer bufferedSize] < _bufferSize || !_audioQueue)
                 {
                     NSArray *parsedData = [_audioFile parseData:&isEof];
