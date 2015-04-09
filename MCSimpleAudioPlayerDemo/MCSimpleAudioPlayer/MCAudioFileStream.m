@@ -167,7 +167,6 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
 
 - (SInt64)seekToTime:(NSTimeInterval *)time
 {
-    _discontinuous = YES;
     SInt64 approximateSeekOffset = _dataOffset + (*time / _duration) * _audioDataByteCount;
     SInt64 seekToPacket = floor(*time / _packetDuration);
     SInt64 seekByteOffset;
@@ -176,11 +175,12 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
     OSStatus status = AudioFileStreamSeek(_audioFileStreamID, seekToPacket, &outDataByteOffset, &ioFlags);
     if (status == noErr && !(ioFlags & kAudioFileStreamSeekFlag_OffsetIsEstimated))
     {
-        *time -= ((seekByteOffset - _dataOffset) - outDataByteOffset) * 8.0 / _bitRate;
+        *time -= ((approximateSeekOffset - _dataOffset) - outDataByteOffset) * 8.0 / _bitRate;
         seekByteOffset = outDataByteOffset + _dataOffset;
     }
     else
     {
+        _discontinuous = YES;
         seekByteOffset = approximateSeekOffset;
     }
     return seekByteOffset;
