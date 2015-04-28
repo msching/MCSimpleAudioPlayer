@@ -190,7 +190,7 @@
     _bufferSize = 0;
     if (duration != 0)
     {
-        _bufferSize = (0.1 / duration) * audioDataByteCount;
+        _bufferSize = (0.2 / duration) * audioDataByteCount;
     }
     
     if (_bufferSize > 0)

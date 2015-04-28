@@ -87,6 +87,11 @@
         }
     }
     
+    if (i < 0)
+    {
+        return nil;
+    }
+    
     UInt32 count = (i >= _bufferBlockArray.count) ? (UInt32)_bufferBlockArray.count : (i + 1);
     *packetCount = count;
     if (count == 0)
