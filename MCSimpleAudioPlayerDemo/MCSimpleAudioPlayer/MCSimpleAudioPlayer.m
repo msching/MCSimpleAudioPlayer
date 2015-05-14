@@ -93,8 +93,6 @@
     _offset = 0;
     [_fileHandler seekToFileOffset:0];
     
-    //deactive audiosession
-    [[MCAudioSession sharedInstance] setActive:NO error:NULL];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MCAudioSessionInterruptionNotification object:nil];
     
     //clean buffer
