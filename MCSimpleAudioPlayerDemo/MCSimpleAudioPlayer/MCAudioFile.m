@@ -116,7 +116,7 @@ static const UInt32 packetPerRead = 15;
                 return;
             }
             
-            for (int i = 0; i * sizeof(AudioFormatListItem) < formatListSize; i += sizeof(AudioFormatListItem))
+            for (int i = 0; i * sizeof(AudioFormatListItem) < formatListSize; i++)
             {
                 AudioStreamBasicDescription format = formatList[i].mASBD;
                 for (UInt32 j = 0; j < supportedFormatCount; ++j)
